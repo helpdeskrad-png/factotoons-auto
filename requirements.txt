@@ -1,9 +1,7 @@
 gtts
 Pillow
-requests
 moviepy
 imageio
 imageio-ffmpeg
-google-api-python-client
-google-auth-oauthlib
-google-auth-httplib2
+numpy
+requests
