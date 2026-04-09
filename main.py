@@ -8,50 +8,54 @@ hooks = [
 "Ye fact aapko shock kar dega...",
 "Agar aap intelligent ho to...",
 "Science ke according...",
-"Ye sach hai aur shocking bhi...",
 "ये fact आपको हिला देगा...",
-"आपका दिमाग घूम जाएगा...",
-"ये सच है और shocking है..."
+"आपका दिमाग घूम जाएगा..."
 ]
 
 facts = [
 "human brain raat ko zyada active hota hai",
 "overthinking intelligent logo ki habit hoti hai",
 "sleep kam ho to memory weak hoti hai",
-"90% log phone use karte waqt time bhool jate hai",
-"subah uthte hi phone dekhna stress badhata hai",
-"dimag 2x fast kaam karta hai jab aap thake hote ho",
-"log 8 minute me interest lose kar dete hai",
-"brain negative cheeze jaldi yaad rakhta hai"
+"subah phone dekhna stress badhata hai",
+"log 8 minute me interest lose kar dete hai"
 ]
 
 text = random.choice(hooks) + " " + random.choice(facts)
 
+# voice
 tts = gTTS(text=text, lang='hi')
 tts.save("voice.mp3")
 
-img = Image.new("RGB",(1080,1920),(20,20,20))
+# create frame
+img = Image.new("RGB",(1080,1920),(10,10,30))
 draw = ImageDraw.Draw(img)
 
-# avatar circle
-draw.ellipse((420,200,660,440), fill=(255,180,180))
+# real avatar style (female)
+draw.ellipse((420,200,660,440), fill=(255,220,200))  # face
+draw.ellipse((460,250,500,290), fill="black")  # eye
+draw.ellipse((580,250,620,290), fill="black")  # eye
+draw.rectangle((500,330,580,345), fill="red")  # lips
 
-# eyes
-draw.ellipse((480,270,510,300), fill="black")
-draw.ellipse((570,270,600,300), fill="black")
-
-# mouth
-draw.rectangle((500,330,580,350), fill="black")
-
+# text
 draw.text((80,700),"Did You Know?", fill=(255,255,0))
 draw.text((80,900), text, fill=(255,255,255))
 
 img.save("frame.png")
 
+# thumbnail
+thumb = Image.new("RGB",(1280,720),(20,0,0))
+d = ImageDraw.Draw(thumb)
+
+d.text((100,200),"SHOCKING FACT", fill=(255,255,0))
+d.text((100,350), text[:60], fill=(255,255,255))
+
+thumb.save("thumbnail.png")
+
+# video
 audio = AudioFileClip("voice.mp3")
 clip = ImageClip("frame.png").set_duration(audio.duration)
-
 video = clip.set_audio(audio)
+
 video.write_videofile("short.mp4", fps=24)
 
-print("Talking avatar video created")
+print("Video + thumbnail created")
