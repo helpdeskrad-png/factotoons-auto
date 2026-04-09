@@ -1,9 +1,12 @@
-print("Uploading short to YouTube...")
+print("Uploading to YouTube...")
 
-title = "Mind Blowing Fact 🤯 #shorts"
+video_file = "short.png"
+
+title = "Amazing Fact 🤯 #shorts"
 description = "Daily amazing facts\n\n#facts #shorts #didyouknow"
 
+print("Video:", video_file)
 print("Title:", title)
 print("Description:", description)
 
-print("Upload ready")
+print("Upload simulated (YouTube API next)")
