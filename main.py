@@ -12,9 +12,11 @@ facts = [
 
 text = random.choice(facts)
 
+# voice
 tts = gTTS(text=text, lang='hi')
 tts.save("voice.mp3")
 
+# shorts image
 img = Image.new("RGB",(1080,1920),(0,0,0))
 draw = ImageDraw.Draw(img)
 
@@ -22,4 +24,4 @@ draw.text((80,900), text, fill=(255,255,255))
 
 img.save("short.png")
 
-print("Generated:", text)
+print("Short ready:", text)
