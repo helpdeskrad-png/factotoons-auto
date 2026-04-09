@@ -1,4 +1,7 @@
 gtts
 moviepy
-requests
+imageio
+imageio-ffmpeg
+numpy
 Pillow
+requests
