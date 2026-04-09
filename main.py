@@ -1,5 +1,6 @@
 import random
 from gtts import gTTS
+from PIL import Image, ImageDraw
 
 facts = [
 "Aapka brain raat ko zyada active hota hai",
@@ -11,7 +12,16 @@ facts = [
 
 text = random.choice(facts)
 
+# voice
 tts = gTTS(text=text, lang='hi')
 tts.save("voice.mp3")
 
-print("voice generated")
+# create shorts image
+img = Image.new("RGB",(1080,1920),(10,10,10))
+draw = ImageDraw.Draw(img)
+
+draw.text((100,900), text, fill=(255,255,255))
+
+img.save("short.png")
+
+print("short generated")
