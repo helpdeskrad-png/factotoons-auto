@@ -1,5 +1,6 @@
 import random
 from gtts import gTTS
+from moviepy.editor import *
 from PIL import Image, ImageDraw
 
 facts = [
@@ -12,16 +13,21 @@ facts = [
 
 text = random.choice(facts)
 
-# create voice
+# voice
 tts = gTTS(text=text, lang='hi')
 tts.save("voice.mp3")
 
-# create shorts image
+# image
 img = Image.new("RGB",(1080,1920),(0,0,0))
 draw = ImageDraw.Draw(img)
-
 draw.text((100,900), text, fill=(255,255,255))
+img.save("frame.png")
 
-img.save("short.png")
+# video
+audio = AudioFileClip("voice.mp3")
+clip = ImageClip("frame.png").set_duration(audio.duration)
+video = clip.set_audio(audio)
 
-print("Short created:", text)
+video.write_videofile("short.mp4", fps=24)
+
+print("video created")
