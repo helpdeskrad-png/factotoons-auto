@@ -1,6 +1,7 @@
 import random
 from gtts import gTTS
 from PIL import Image, ImageDraw
+from moviepy.editor import *
 
 hooks = [
 "90% log ye nahi jaante...",
@@ -33,19 +34,21 @@ bg = random.choice(colors)
 tts = gTTS(text=text, lang='hi', slow=False)
 tts.save("voice.mp3")
 
-# image
+# create frame
 img = Image.new("RGB",(1080,1920),bg)
 draw = ImageDraw.Draw(img)
 
-# branding
 draw.text((80,200),"Did You Know?", fill=(255,255,0))
-
-# subtitle box
 draw.text((80,900), text, fill=(255,255,255))
-
-# footer
 draw.text((80,1700),"FactoToons", fill=(255,0,0))
 
-img.save("short.png")
+img.save("frame.png")
 
-print("Generated:", text)
+# create video
+audio = AudioFileClip("voice.mp3")
+clip = ImageClip("frame.png").set_duration(audio.duration)
+video = clip.set_audio(audio)
+
+video.write_videofile("short.mp4", fps=24)
+
+print("Video created")
