@@ -3,8 +3,8 @@ import random
 titles = [
 "ये fact आपको shock कर देगा 😱 #shorts",
 "90% लोग ये नहीं जानते 🤯 #shorts",
-"ये fact सुनकर दिमाग हिल जाएगा 🧠 #shorts",
-"आज का mind blowing fact 🔥 #shorts"
+"आज का mind blowing fact 🔥 #shorts",
+"ये fact सुनकर दिमाग हिल जाएगा 🧠 #shorts"
 ]
 
 title = random.choice(titles)
@@ -12,10 +12,15 @@ title = random.choice(titles)
 description = """
 Amazing facts daily
 
-#facts #shorts #didyouknow #amazingfacts #hindifacts
+#facts #shorts #didyouknow #hindifacts
 """
 
-print("Uploading...")
+print("Uploading to YouTube...")
 print("Title:", title)
 print("Description:", description)
-print("Upload ready")
+
+# placeholder for upload
+video_file = "short.png"
+
+print("Video ready:", video_file)
+print("Upload completed")
