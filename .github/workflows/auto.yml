@@ -3,7 +3,7 @@ name: Auto Shorts
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 */4 * * *'
+    - cron: '0 */2 * * *'
 
 jobs:
   build:
@@ -32,3 +32,9 @@ jobs:
 
       - name: Upload to YouTube
         run: python upload.py
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: shorts-video
+          path: short.mp4
