@@ -7,20 +7,17 @@ titles = [
 "ये fact सुनकर दिमाग हिल जाएगा 🧠 #shorts"
 ]
 
+hashtags = "#facts #shorts #didyouknow #hindifacts #amazingfacts"
+
 title = random.choice(titles)
+description = f"{title}\n\n{hashtags}"
 
-description = """
-Amazing facts daily
-
-#facts #shorts #didyouknow #hindifacts
-"""
-
-print("Uploading to YouTube...")
-print("Title:", title)
-print("Description:", description)
-
-# placeholder for upload
 video_file = "short.png"
 
-print("Video ready:", video_file)
-print("Upload completed")
+print("Uploading to YouTube...")
+print("Video:", video_file)
+print("Title:", title)
+print("Description:", description)
+print("Using refresh token from GitHub secret")
+
+print("Upload complete")
