@@ -1,12 +1,21 @@
-print("Uploading to YouTube...")
+import random
 
-video_file = "short.png"
+titles = [
+"ये fact आपको shock कर देगा 😱 #shorts",
+"90% लोग ये नहीं जानते 🤯 #shorts",
+"ये fact सुनकर दिमाग हिल जाएगा 🧠 #shorts",
+"आज का mind blowing fact 🔥 #shorts"
+]
 
-title = "Amazing Fact 🤯 #shorts"
-description = "Daily amazing facts\n\n#facts #shorts #didyouknow"
+title = random.choice(titles)
 
-print("Video:", video_file)
+description = """
+Amazing facts daily
+
+#facts #shorts #didyouknow #amazingfacts #hindifacts
+"""
+
+print("Uploading...")
 print("Title:", title)
 print("Description:", description)
-
-print("Upload simulated (YouTube API next)")
+print("Upload ready")
