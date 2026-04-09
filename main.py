@@ -18,18 +18,33 @@ facts = [
 "subah uthte hi phone dekhna stress badhata hai"
 ]
 
-text = random.choice(hooks) + " " + random.choice(facts)
+colors = [
+(15,15,15),
+(0,0,40),
+(20,0,0),
+(0,20,0),
+(30,0,30)
+]
 
-# female style voice
+text = random.choice(hooks) + " " + random.choice(facts)
+bg = random.choice(colors)
+
+# voice
 tts = gTTS(text=text, lang='hi', slow=False)
 tts.save("voice.mp3")
 
-# shorts layout
-img = Image.new("RGB",(1080,1920),(15,15,15))
+# image
+img = Image.new("RGB",(1080,1920),bg)
 draw = ImageDraw.Draw(img)
 
-draw.text((80,700), "FACT", fill=(255,0,0))
+# branding
+draw.text((80,200),"Did You Know?", fill=(255,255,0))
+
+# subtitle box
 draw.text((80,900), text, fill=(255,255,255))
+
+# footer
+draw.text((80,1700),"FactoToons", fill=(255,0,0))
 
 img.save("short.png")
 
