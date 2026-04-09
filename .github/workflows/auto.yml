@@ -11,6 +11,7 @@ jobs:
 
     env:
       CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+      REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
 
     steps:
       - uses: actions/checkout@v3
@@ -20,17 +21,14 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Install
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Generate
+      - name: Generate Video
         run: python main.py
 
-      - name: Upload
+      - name: Upload to YouTube
         run: python upload.py
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        with:
-         name: short
-         path: short.png
