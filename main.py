@@ -1,8 +1,7 @@
 import random
 from gtts import gTTS
 from PIL import Image, ImageDraw
-from moviepy.editor import ImageSequenceClip, AudioFileClip, CompositeAudioClip
-import numpy as np
+from moviepy.editor import ImageSequenceClip, AudioFileClip
 
 hooks = [
 "90% log ye nahi jaante...",
@@ -23,75 +22,53 @@ facts = [
 
 text = random.choice(hooks) + " " + random.choice(facts)
 
-# voice
 tts = gTTS(text=text, lang='hi')
 tts.save("voice.mp3")
 
 frames = []
 
-for i in range(20):
+for i in range(24):
 
-    img = Image.new("RGB",(1080,1920),(8,8,25))
+    zoom = i*2
+
+    img = Image.new("RGB",(1080,1920),(8,8,30))
     draw = ImageDraw.Draw(img)
 
-    # head movement
     offset = 5 if i%2==0 else -5
 
-    # realistic avatar head
-    draw.ellipse((420+offset,200,660+offset,440), fill=(255,220,200))
+    # avatar
+    draw.ellipse((420+offset-zoom,200-zoom,660+offset+zoom,440+zoom),
+                 fill=(255,220,200))
 
-    # blinking eyes
-    if i % 6 == 0:
+    # blinking
+    if i%6==0:
         draw.rectangle((470+offset,270,510+offset,275), fill="black")
         draw.rectangle((570+offset,270,610+offset,275), fill="black")
     else:
         draw.ellipse((470+offset,260,510+offset,300), fill="black")
         draw.ellipse((570+offset,260,610+offset,300), fill="black")
 
-    # talking mouth
+    # mouth
     if i%2==0:
         draw.rectangle((500+offset,330,580+offset,350), fill="red")
     else:
         draw.rectangle((500+offset,320,580+offset,370), fill="red")
 
-    # hand movement
-    if i%2==0:
-        draw.rectangle((380,400,420,520), fill=(255,220,200))
-    else:
-        draw.rectangle((380,420,420,540), fill=(255,220,200))
+    # animated subtitles
+    y = 900 + (i%3)*3
 
-    # text
     draw.text((80,700),"Did You Know?", fill=(255,255,0))
-    draw.text((80,900), text, fill=(255,255,255))
+    draw.text((80,y), text, fill=(255,255,255))
 
     frame = f"frame_{i}.png"
     img.save(frame)
     frames.append(frame)
 
-# thumbnail
-thumb = Image.new("RGB",(1280,720),(25,0,0))
-d = ImageDraw.Draw(thumb)
+audio = AudioFileClip("voice.mp3")
 
-d.text((100,200),"SHOCKING FACT", fill=(255,255,0))
-d.text((100,350), text[:60], fill=(255,255,255))
-
-thumb.save("thumbnail.png")
-
-# create video
-voice = AudioFileClip("voice.mp3")
-
-# background music (generated tone)
-duration = voice.duration
-fps = 44100
-t = np.linspace(0, duration, int(fps*duration))
-audio_bg = 0.02*np.sin(2*np.pi*220*t)
-bg_audio = AudioFileClip("voice.mp3").volumex(0.1)
-
-audio = CompositeAudioClip([voice, bg_audio])
-
-clip = ImageSequenceClip(frames, fps=6)
+clip = ImageSequenceClip(frames, fps=8)
 clip = clip.set_audio(audio)
 
 clip.write_videofile("short.mp4", fps=24)
 
-print("Realistic animated avatar created")
+print("Ultra viral video created")
