@@ -1,3 +1,7 @@
+import random
+from gtts import gTTS
+from PIL import Image, ImageDraw
+
 hooks = [
 "90% log ye nahi jaante...",
 "Ye fact aapko shock kar dega...",
@@ -15,3 +19,18 @@ facts = [
 ]
 
 text = random.choice(hooks) + " " + random.choice(facts)
+
+# female style voice
+tts = gTTS(text=text, lang='hi', slow=False)
+tts.save("voice.mp3")
+
+# shorts layout
+img = Image.new("RGB",(1080,1920),(15,15,15))
+draw = ImageDraw.Draw(img)
+
+draw.text((80,700), "FACT", fill=(255,0,0))
+draw.text((80,900), text, fill=(255,255,255))
+
+img.save("short.png")
+
+print("Generated:", text)
